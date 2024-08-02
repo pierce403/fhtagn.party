@@ -1,0 +1,42 @@
+/* Styles for the Filter page */
+.container {
+  background-color: black;
+  color: green;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+}
+
+.button {
+  background-color: green;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: lightgreen;
+}
+
+.image {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 20px 0;
+}
