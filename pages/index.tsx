@@ -16,11 +16,6 @@ const questions: Question[] = [
     correctAnswer: true
   },
   {
-    text: "What is the name of the sunken city from Lovecraft's mythos?",
-    type: "text",
-    correctAnswer: "R'lyeh"
-  },
-  {
     text: "Which of these is NOT a Great Old One?",
     type: "multiple",
     options: ["Cthulhu", "Azathoth", "Yog-Sothoth", "Dagon"],
@@ -30,13 +25,17 @@ const questions: Question[] = [
     text: "Are you ready to embrace cosmic horror?",
     type: "boolean",
     correctAnswer: true
+  },
+  {
+    text: "Is the phrase 'Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn' familiar to you?",
+    type: "boolean",
+    correctAnswer: true
   }
 ];
 
 const LandingPage: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(string | boolean)[]>([]);
-  const [textInput, setTextInput] = useState('');
   const router = useRouter();
 
   const handleAnswer = (answer: string | boolean) => {
@@ -45,7 +44,6 @@ const LandingPage: React.FC = () => {
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      setTextInput('');
     } else {
       const allCorrect = newAnswers.every((a, index) =>
         a === questions[index].correctAnswer
@@ -55,7 +53,6 @@ const LandingPage: React.FC = () => {
       } else {
         setCurrentQuestion(0);
         setAnswers([]);
-        setTextInput('');
       }
     }
   };
@@ -80,23 +77,6 @@ const LandingPage: React.FC = () => {
             </button>
           </div>
         );
-      case 'text':
-        return (
-          <div>
-            <input
-              type="text"
-              value={textInput}
-              onChange={(e) => setTextInput(e.target.value)}
-              className="bg-green-900 text-green-100 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 border-2 border-green-700"
-            />
-            <button
-              onClick={() => handleAnswer(textInput)}
-              className="fancy-button ml-2"
-            >
-              Submit
-            </button>
-          </div>
-        );
       case 'multiple':
         return (
           <div className="space-y-2">
@@ -111,6 +91,8 @@ const LandingPage: React.FC = () => {
             ))}
           </div>
         );
+      default:
+        return null;
     }
   };
 
@@ -121,22 +103,24 @@ const LandingPage: React.FC = () => {
         <meta name="description" content="Embrace the unknown at fhtagn.party" />
       </Head>
       <div className="min-h-screen bg-black text-green-100 flex flex-col items-center justify-center p-4 bg-[url('/tentacle-bg.png')] bg-cover bg-center bg-blend-overlay bg-opacity-80">
-        <div className="max-w-2xl w-full bg-green-900 bg-opacity-90 p-8 rounded-xl shadow-2xl border border-green-500">
-          <h1 className="text-5xl font-bold mb-8 text-center text-green-300">Welcome to fhtagn.party</h1>
-          <p className="text-lg mb-8 text-center text-green-200">
-            Dare to delve into the depths of cosmic horror? Answer these questions to test your readiness for the unknown.
-          </p>
-          {currentQuestion < questions.length ? (
-            <div className="text-center">
-              <p className="text-2xl mb-6 text-white">{questions[currentQuestion].text}</p>
-              {renderQuestion()}
-              <div className="mt-8 text-sm text-green-400">
-                Question {currentQuestion + 1} of {questions.length}
+        <div className="max-w-2xl w-full bg-green-900 bg-opacity-90 p-8 rounded-xl shadow-2xl border border-green-500 text-center">
+          <div className="center-text">
+            <h1 className="text-5xl font-bold mb-8 text-green-300">Welcome to fhtagn.party</h1>
+            <p className="text-lg mb-8 text-green-200">
+              Dare to delve into the depths of cosmic horror? Answer these questions to test your readiness for the unknown.
+            </p>
+            {currentQuestion < questions.length ? (
+              <div>
+                <p className="text-2xl mb-6 text-white">{questions[currentQuestion].text}</p>
+                {renderQuestion()}
+                <div className="mt-8 text-sm text-green-400">
+                  Question {currentQuestion + 1} of {questions.length}
+                </div>
               </div>
-            </div>
-          ) : (
-            <p className="text-xl text-center text-green-200">Thank you for your answers. Redirecting to the depths beyond...</p>
-          )}
+            ) : (
+              <p className="text-xl text-green-200">Thank you for your answers. Redirecting to the depths beyond...</p>
+            )}
+          </div>
         </div>
       </div>
     </>
