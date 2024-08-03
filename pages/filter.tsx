@@ -256,7 +256,7 @@ const endChallenge = useCallback(async () => {
           {!challengeStarted ? (
             <>
               <h2>Ready to start the challenge?</h2>
-              <button onClick={startChallenge} className={styles.startButton}>Start Challenge</button>
+              <button onClick={startChallenge} className="fancy-button">Start Challenge</button>
             </>
           ) : (
             <>
@@ -271,8 +271,8 @@ const endChallenge = useCallback(async () => {
                 />
               )}
               <div className={styles.buttonContainer}>
-                <button onClick={() => handleAnswer('cephalopod')} className={styles.answerButton}>Cephalopod</button>
-                <button onClick={() => handleAnswer('crustacean')} className={styles.answerButton}>Crustacean</button>
+                <button onClick={() => handleAnswer('cephalopod')} className="fancy-button">Cephalopod</button>
+                <button onClick={() => handleAnswer('crustacean')} className="fancy-button">Crustacean</button>
               </div>
               <p className={styles.progress}>Correct: {correctAnswers} / 10 required</p>
               <p className={styles.progress}>Total Answered: {totalAnswered}</p>
