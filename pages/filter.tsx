@@ -251,7 +251,7 @@ const endChallenge = useCallback(async () => {
     <ErrorBoundary>
       <div className={styles.container}>
         <h1>Cephalopod or Crustacean Challenge</h1>
-        <p>Classify 10 images correctly within 20 seconds to pass the challenge!</p>
+        <p>Classify 10 images correctly within 20 seconds to pass the challenge and proceed to the next stage!</p>
         <div className={styles.modal}>
           {!challengeStarted ? (
             <>
@@ -274,8 +274,8 @@ const endChallenge = useCallback(async () => {
                 <button onClick={() => handleAnswer('cephalopod')} className={styles.answerButton}>Cephalopod</button>
                 <button onClick={() => handleAnswer('crustacean')} className={styles.answerButton}>Crustacean</button>
               </div>
-              <p className={styles.progress}>Correct: {correctAnswers} / 10</p>
-              <p className={styles.progress}>Total Answered: {totalAnswered} / 10</p>
+              <p className={styles.progress}>Correct: {correctAnswers} / 10 required</p>
+              <p className={styles.progress}>Total Answered: {totalAnswered}</p>
             </>
           )}
         </div>
