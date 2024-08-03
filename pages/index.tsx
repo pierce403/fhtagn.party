@@ -68,13 +68,13 @@ const LandingPage: React.FC = () => {
           <div className="space-x-4">
             <button
               onClick={() => handleAnswer(true)}
-              className="bg-green-900 hover:bg-green-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+              className="fancy-button"
             >
               Yes
             </button>
             <button
               onClick={() => handleAnswer(false)}
-              className="bg-red-900 hover:bg-red-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+              className="fancy-button bg-green-800 hover:bg-green-700 text-white border-green-600"
             >
               No
             </button>
@@ -87,11 +87,11 @@ const LandingPage: React.FC = () => {
               type="text"
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="bg-green-900 text-green-100 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 border-2 border-green-700"
             />
             <button
               onClick={() => handleAnswer(textInput)}
-              className="bg-purple-900 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-lg ml-2 transition duration-300 ease-in-out transform hover:scale-105"
+              className="fancy-button ml-2"
             >
               Submit
             </button>
@@ -104,7 +104,7 @@ const LandingPage: React.FC = () => {
               <button
                 key={option}
                 onClick={() => handleAnswer(option)}
-                className="bg-indigo-900 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-lg block w-full transition duration-300 ease-in-out transform hover:scale-105"
+                className="fancy-button bg-green-700 hover:bg-green-600 text-white w-full border-green-500"
               >
                 {option}
               </button>
@@ -120,22 +120,22 @@ const LandingPage: React.FC = () => {
         <title>fhtagn.party - Cosmic Horror Awaits</title>
         <meta name="description" content="Embrace the unknown at fhtagn.party" />
       </Head>
-      <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center justify-center p-4 bg-[url('/tentacle-bg.png')] bg-cover bg-center">
-        <div className="max-w-2xl w-full bg-black bg-opacity-80 p-8 rounded-xl shadow-2xl">
-          <h1 className="text-5xl font-bold mb-8 text-center text-purple-300">Welcome to fhtagn.party</h1>
-          <p className="text-lg mb-8 text-center text-gray-300">
+      <div className="min-h-screen bg-black text-green-100 flex flex-col items-center justify-center p-4 bg-[url('/tentacle-bg.png')] bg-cover bg-center bg-blend-overlay bg-opacity-80">
+        <div className="max-w-2xl w-full bg-green-900 bg-opacity-90 p-8 rounded-xl shadow-2xl border border-green-500">
+          <h1 className="text-5xl font-bold mb-8 text-center text-green-300">Welcome to fhtagn.party</h1>
+          <p className="text-lg mb-8 text-center text-green-200">
             Dare to delve into the depths of cosmic horror? Answer these questions to test your readiness for the unknown.
           </p>
           {currentQuestion < questions.length ? (
             <div className="text-center">
-              <p className="text-2xl mb-6 text-green-300">{questions[currentQuestion].text}</p>
+              <p className="text-2xl mb-6 text-white">{questions[currentQuestion].text}</p>
               {renderQuestion()}
-              <div className="mt-8 text-sm text-gray-400">
+              <div className="mt-8 text-sm text-green-400">
                 Question {currentQuestion + 1} of {questions.length}
               </div>
             </div>
           ) : (
-            <p className="text-xl text-center">Thank you for your answers. Redirecting to the depths beyond...</p>
+            <p className="text-xl text-center text-green-200">Thank you for your answers. Redirecting to the depths beyond...</p>
           )}
         </div>
       </div>
