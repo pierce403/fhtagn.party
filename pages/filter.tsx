@@ -38,7 +38,7 @@ const Filter: React.FC = () => {
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(20); // Changed from 200 to 20 seconds
+  const [timeLeft, setTimeLeft] = useState(200); // Changed from 200 to 20 seconds
   const [currentImage, setCurrentImage] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0);
@@ -47,7 +47,7 @@ const Filter: React.FC = () => {
   const [isEndingChallenge, setIsEndingChallenge] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const challengeDuration = 20; // Changed from 200 to 20 seconds
+  const challengeDuration = 200; // Changed from 200 to 20 seconds
 
   const loadNextImage = useCallback(() => {
     console.log('loadNextImage called. Starting image selection process.');
@@ -153,7 +153,7 @@ const Filter: React.FC = () => {
 
     setChallengeStarted(true);
     setChallengeCompleted(false);
-    setTimeLeft(20); // Set to 20 seconds to start the challenge
+    setTimeLeft(200); // Set to 20 seconds to start the challenge
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setIsEndingChallenge(false);
