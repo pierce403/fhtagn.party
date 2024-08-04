@@ -27,11 +27,11 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
 }
 
 const cephalopodImages = [
-  ...Array.from({ length: 9 }, (_, i) => `/images/ceph/ceph${i + 1}.jpg`)
+  ...Array.from({ length: 10 }, (_, i) => `/images/ceph/ceph${i + 1}.jpg`)
 ];
 
 const crustaceanImages = [
-  ...Array.from({ length: 9 }, (_, i) => `/images/crust/crust${i + 1}.jpg`)
+  ...Array.from({ length: 10 }, (_, i) => `/images/crust/crust${i + 1}.jpg`)
 ];
 
 const Filter: React.FC = () => {
