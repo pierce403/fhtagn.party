@@ -131,7 +131,7 @@ const Filter: React.FC = () => {
       }
     } else {
       console.log('Challenge failed. Final states:', { correctAnswers, totalAnswered, timeLeft });
-      alert(`Challenge failed. You correctly classified ${correctAnswers} out of ${totalAnswered} images${timeLeft === 0 ? ' but ran out of time' : ''}.`);
+      alert(`Challenge failed. You correctly classified ${correctAnswers} out of ${totalAnswered} images${timeLeft === 0 ? ' but ran out of time' : ''}. You need 10 correct answers to pass.`);
       setIsRedirecting(false);
     }
 
