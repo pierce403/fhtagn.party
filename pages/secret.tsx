@@ -17,9 +17,9 @@ const Secret: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Congratulations!</h1>
+      <h1 className={styles.title}>You made it!</h1>
       <p className={styles.message}>
-        You have successfully passed the challenge and reached the secret page.
+        Congratulations! You have successfully passed the challenge.
       </p>
       {secret && (
         <p className={styles.secret}>

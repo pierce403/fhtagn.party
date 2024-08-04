@@ -38,7 +38,7 @@ const Filter: React.FC = () => {
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(200);
+  const [timeLeft, setTimeLeft] = useState(20); // Changed from 200 to 20 seconds
   const [currentImage, setCurrentImage] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0);
@@ -47,7 +47,7 @@ const Filter: React.FC = () => {
   const [isEndingChallenge, setIsEndingChallenge] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const challengeDuration = 200; // seconds
+  const challengeDuration = 20; // Changed from 200 to 20 seconds
 
   const loadNextImage = useCallback(() => {
     console.log('loadNextImage called. Starting image selection process.');
@@ -76,7 +76,6 @@ const Filter: React.FC = () => {
 
   const endChallenge = useCallback(async () => {
     console.log('Entering endChallenge. Current states:', { isEndingChallenge, challengeCompleted, correctAnswers, totalAnswered, challengeStarted, timeLeft, isRedirecting });
-    console.log('endChallenge called. Stack trace:', new Error().stack);
 
     if (isEndingChallenge || challengeCompleted || isRedirecting) {
       console.log('Challenge already ended, completed, or redirecting, skipping');
@@ -85,80 +84,82 @@ const Filter: React.FC = () => {
 
     setIsEndingChallenge(true);
     setChallengeCompleted(true);
-    setIsRedirecting(true);
-    console.log('Challenge ending flags set');
-
     setChallengeStarted(false);
-    console.log('Challenge ended. challengeStarted set to false');
 
     if (timerRef.current) {
-      console.log('Clearing timer');
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
 
     console.log('Challenge result:', { correctAnswers, totalAnswered, timeLeft });
+
     if (correctAnswers >= 10) {
-      console.log('Challenge passed. Attempting to fetch secret');
-      try {
-        const response = await fetch('/api/getSecret');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data.secret) {
-          console.log('Secret obtained successfully');
-          localStorage.setItem('secret', data.secret);
-          try {
-            console.log('Attempting to redirect to: /secret');
-            await router.push('/secret');
-          } catch (error) {
-            console.error('Error redirecting to secret page:', error);
-          }
-        } else {
-          throw new Error('Server response did not contain a secret');
-        }
-      } catch (error: unknown) {
-        console.error('Error obtaining secret:', error);
-        if (error instanceof Error) {
-          console.error('Error details:', error.message, error.stack);
-          alert(`An error occurred: ${error.message}. Please try again.`);
-        } else {
-          console.error('Unknown error:', error);
-          alert('An unknown error occurred. Please try again.');
-        }
-        setIsRedirecting(false);
-      }
-    } else {
-      console.log('Challenge failed. Final states:', { correctAnswers, totalAnswered, timeLeft });
-      alert(`Challenge failed. You correctly classified ${correctAnswers} out of ${totalAnswered} images${timeLeft === 0 ? ' but ran out of time' : ''}.`);
-      setIsRedirecting(false);
+      await handleSuccessfulChallenge();
+    } else if (totalAnswered >= 10) {
+      handleFailedChallenge();
+    } else if (timeLeft === 0) {
+      handleFailedChallenge();
     }
 
-    // Reset all challenge-related states
-    console.log('Resetting challenge-related states');
+    console.log('Exiting endChallenge. States updated.');
+  }, [correctAnswers, totalAnswered, challengeStarted, timeLeft, isEndingChallenge, challengeCompleted, isRedirecting, router]);
+
+  const handleSuccessfulChallenge = async () => {
+    console.log('Challenge passed. Redirecting to secret page');
+    setIsRedirecting(true);
+    try {
+      const response = await fetch('/api/getSecret');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.secret) {
+        localStorage.setItem('secret', data.secret);
+        await router.push('/secret');
+      } else {
+        throw new Error('Server response did not contain a secret');
+      }
+    } catch (error: unknown) {
+      console.error('Error obtaining secret or redirecting:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      alert(`An error occurred: ${errorMessage}. Please try again.`);
+      resetChallengeState();
+    }
+  };
+
+  const handleFailedChallenge = () => {
+    console.log('Challenge failed. Final states:', { correctAnswers, totalAnswered, timeLeft });
+    let failureReason = '';
+    if (timeLeft === 0) {
+      failureReason = 'You ran out of time. ';
+    } else if (totalAnswered >= 10) {
+      failureReason = 'You used all 10 attempts. ';
+    }
+    alert(`Challenge failed. ${failureReason}You correctly classified ${correctAnswers} out of ${totalAnswered} images. You need 10 correct answers to pass.`);
+    resetChallengeState();
+  };
+
+  const resetChallengeState = () => {
+    setIsRedirecting(false);
+    setChallengeCompleted(false);
+    setIsEndingChallenge(false);
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setCurrentImage('');
-    setIsEndingChallenge(false);
-    setChallengeCompleted(false);
-
-    console.log('Exiting endChallenge. States reset.');
-  }, [correctAnswers, totalAnswered, challengeStarted, timeLeft, isEndingChallenge, challengeCompleted, isRedirecting, router]);
+  };
 
   const startChallenge = useCallback(() => {
     if (challengeStarted) return; // Prevent starting multiple challenges
 
     setChallengeStarted(true);
     setChallengeCompleted(false);
-    setTimeLeft(200); // Set to 20 seconds to start the challenge
+    setTimeLeft(20); // Set to 20 seconds to start the challenge
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setIsEndingChallenge(false);
     setIsRedirecting(false);
 
-    // TODO lol hardcode
-    console.log('Challenge starting. Initial states:', { timeLeft: 200, correctAnswers: 0, totalAnswered: 0 });
+    console.log('Challenge starting. Initial states:', { timeLeft: 20, correctAnswers: 0, totalAnswered: 0 });
 
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -218,19 +219,29 @@ const Filter: React.FC = () => {
     setTotalAnswered(prev => {
       const newTotal = prev + 1;
       console.log('New totalAnswered:', newTotal);
-      if (newTotal >= 10) {
-        console.log('Challenge completion condition met');
-        console.log('About to call endChallenge. Current state:', { correctAnswers: isCorrect ? correctAnswers + 1 : correctAnswers, newTotal, timeLeft });
-        endChallenge();
-      }
       return newTotal;
     });
 
-    if (!isEndingChallenge) {
+    // Check for challenge completion after updating both correctAnswers and totalAnswered
+    const newCorrectAnswers = correctAnswers + (isCorrect ? 1 : 0);
+    const newTotalAnswered = totalAnswered + 1;
+
+    console.log('handleAnswer completed. Current state:', {
+      correctAnswers: newCorrectAnswers,
+      totalAnswered: newTotalAnswered,
+      timeLeft,
+      isEndingChallenge
+    });
+
+    if (newCorrectAnswers >= 10) {
+      console.log('Challenge completed successfully');
+      endChallenge();
+    } else if (newTotalAnswered >= 10) {
+      console.log('Challenge completed but not passed');
+      endChallenge();
+    } else {
       loadNextImage();
     }
-
-    console.log('handleAnswer completed. Current state:', { correctAnswers: isCorrect ? correctAnswers + 1 : correctAnswers, totalAnswered: totalAnswered + 1, timeLeft, isEndingChallenge });
   }, [challengeStarted, challengeCompleted, isEndingChallenge, isRedirecting, currentImageType, endChallenge, loadNextImage, correctAnswers, totalAnswered, timeLeft]);
 
 
