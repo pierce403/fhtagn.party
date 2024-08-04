@@ -38,7 +38,7 @@ const Filter: React.FC = () => {
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(20);
+  const [timeLeft, setTimeLeft] = useState(200);
   const [currentImage, setCurrentImage] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0);
@@ -151,13 +151,14 @@ const Filter: React.FC = () => {
 
     setChallengeStarted(true);
     setChallengeCompleted(false);
-    setTimeLeft(20); // Set to 20 seconds to start the challenge
+    setTimeLeft(200); // Set to 20 seconds to start the challenge
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setIsEndingChallenge(false);
     setIsRedirecting(false);
 
-    console.log('Challenge starting. Initial states:', { timeLeft: 20, correctAnswers: 0, totalAnswered: 0 });
+    // TODO lol hardcode
+    console.log('Challenge starting. Initial states:', { timeLeft: 200, correctAnswers: 0, totalAnswered: 0 });
 
     if (timerRef.current) {
       clearInterval(timerRef.current);

@@ -27,7 +27,7 @@ const questions: Question[] = [
     correctAnswer: true
   },
   {
-    text: "Is the phrase 'Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn' familiar to you?",
+    text: "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn?",
     type: "boolean",
     correctAnswer: true
   }
