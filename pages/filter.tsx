@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from '../styles/Filter.module.css';
 
-class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean}> {
-  constructor(props: {children: React.ReactNode}) {
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }
@@ -27,13 +27,11 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 }
 
 const cephalopodImages = [
-  '/images/cephalopods/Cephalopoda_diversity.jpg',
-  ...Array.from({length: 99}, (_, i) => `/images/cephalopods/cephalopod_${i + 1}.jpg`)
+  ...Array.from({ length: 9 }, (_, i) => `/images/ceph/ceph${i + 1}.jpg`)
 ];
 
 const crustaceanImages = [
-  '/images/crustaceans/crab.jpg',
-  ...Array.from({length: 99}, (_, i) => `/images/crustaceans/crustacean_${i + 1}.jpg`)
+  ...Array.from({ length: 9 }, (_, i) => `/images/crust/crust${i + 1}.jpg`)
 ];
 
 const Filter: React.FC = () => {
@@ -49,7 +47,7 @@ const Filter: React.FC = () => {
   const [isEndingChallenge, setIsEndingChallenge] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const challengeDuration = 20; // seconds
+  const challengeDuration = 200; // seconds
 
   const loadNextImage = useCallback(() => {
     console.log('loadNextImage called. Starting image selection process.');
@@ -74,79 +72,79 @@ const Filter: React.FC = () => {
     setIsModalOpen(true);
   }, []);
 
-// Initial setup moved to startChallenge function
+  // Initial setup moved to startChallenge function
 
-const endChallenge = useCallback(async () => {
-  console.log('Entering endChallenge. Current states:', { isEndingChallenge, challengeCompleted, correctAnswers, totalAnswered, challengeStarted, timeLeft, isRedirecting });
-  console.log('endChallenge called. Stack trace:', new Error().stack);
+  const endChallenge = useCallback(async () => {
+    console.log('Entering endChallenge. Current states:', { isEndingChallenge, challengeCompleted, correctAnswers, totalAnswered, challengeStarted, timeLeft, isRedirecting });
+    console.log('endChallenge called. Stack trace:', new Error().stack);
 
-  if (isEndingChallenge || challengeCompleted || isRedirecting) {
-    console.log('Challenge already ended, completed, or redirecting, skipping');
-    return;
-  }
+    if (isEndingChallenge || challengeCompleted || isRedirecting) {
+      console.log('Challenge already ended, completed, or redirecting, skipping');
+      return;
+    }
 
-  setIsEndingChallenge(true);
-  setChallengeCompleted(true);
-  setIsRedirecting(true);
-  console.log('Challenge ending flags set');
+    setIsEndingChallenge(true);
+    setChallengeCompleted(true);
+    setIsRedirecting(true);
+    console.log('Challenge ending flags set');
 
-  setChallengeStarted(false);
-  console.log('Challenge ended. challengeStarted set to false');
+    setChallengeStarted(false);
+    console.log('Challenge ended. challengeStarted set to false');
 
-  if (timerRef.current) {
-    console.log('Clearing timer');
-    clearInterval(timerRef.current);
-    timerRef.current = null;
-  }
+    if (timerRef.current) {
+      console.log('Clearing timer');
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
 
-  console.log('Challenge result:', { correctAnswers, totalAnswered, timeLeft });
-  if (correctAnswers >= 10) {
-    console.log('Challenge passed. Attempting to fetch secret');
-    try {
-      const response = await fetch('/api/getSecret');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      if (data.secret) {
-        console.log('Secret obtained successfully');
-        localStorage.setItem('secret', data.secret);
-        try {
-          console.log('Attempting to redirect to: /secret');
-          await router.push('/secret');
-        } catch (error) {
-          console.error('Error redirecting to secret page:', error);
+    console.log('Challenge result:', { correctAnswers, totalAnswered, timeLeft });
+    if (correctAnswers >= 10) {
+      console.log('Challenge passed. Attempting to fetch secret');
+      try {
+        const response = await fetch('/api/getSecret');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      } else {
-        throw new Error('Server response did not contain a secret');
+        const data = await response.json();
+        if (data.secret) {
+          console.log('Secret obtained successfully');
+          localStorage.setItem('secret', data.secret);
+          try {
+            console.log('Attempting to redirect to: /secret');
+            await router.push('/secret');
+          } catch (error) {
+            console.error('Error redirecting to secret page:', error);
+          }
+        } else {
+          throw new Error('Server response did not contain a secret');
+        }
+      } catch (error: unknown) {
+        console.error('Error obtaining secret:', error);
+        if (error instanceof Error) {
+          console.error('Error details:', error.message, error.stack);
+          alert(`An error occurred: ${error.message}. Please try again.`);
+        } else {
+          console.error('Unknown error:', error);
+          alert('An unknown error occurred. Please try again.');
+        }
+        setIsRedirecting(false);
       }
-    } catch (error: unknown) {
-      console.error('Error obtaining secret:', error);
-      if (error instanceof Error) {
-        console.error('Error details:', error.message, error.stack);
-        alert(`An error occurred: ${error.message}. Please try again.`);
-      } else {
-        console.error('Unknown error:', error);
-        alert('An unknown error occurred. Please try again.');
-      }
+    } else {
+      console.log('Challenge failed. Final states:', { correctAnswers, totalAnswered, timeLeft });
+      alert(`Challenge failed. You correctly classified ${correctAnswers} out of ${totalAnswered} images${timeLeft === 0 ? ' but ran out of time' : ''}.`);
       setIsRedirecting(false);
     }
-  } else {
-    console.log('Challenge failed. Final states:', { correctAnswers, totalAnswered, timeLeft });
-    alert(`Challenge failed. You correctly classified ${correctAnswers} out of ${totalAnswered} images${timeLeft === 0 ? ' but ran out of time' : ''}.`);
-    setIsRedirecting(false);
-  }
 
-  // Reset all challenge-related states
-  console.log('Resetting challenge-related states');
-  setCorrectAnswers(0);
-  setTotalAnswered(0);
-  setCurrentImage('');
-  setIsEndingChallenge(false);
-  setChallengeCompleted(false);
+    // Reset all challenge-related states
+    console.log('Resetting challenge-related states');
+    setCorrectAnswers(0);
+    setTotalAnswered(0);
+    setCurrentImage('');
+    setIsEndingChallenge(false);
+    setChallengeCompleted(false);
 
-  console.log('Exiting endChallenge. States reset.');
-}, [correctAnswers, totalAnswered, challengeStarted, timeLeft, isEndingChallenge, challengeCompleted, isRedirecting, router]);
+    console.log('Exiting endChallenge. States reset.');
+  }, [correctAnswers, totalAnswered, challengeStarted, timeLeft, isEndingChallenge, challengeCompleted, isRedirecting, router]);
 
   const startChallenge = useCallback(() => {
     if (challengeStarted) return; // Prevent starting multiple challenges
