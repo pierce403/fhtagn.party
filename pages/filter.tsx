@@ -3,6 +3,22 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from '../styles/Filter.module.css';
 
+// New CSS classes for button container and image sizing
+const customStyles = {
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '10px',
+    marginBottom: '20px',
+  },
+  challengeImage: {
+    maxWidth: '50%',
+    height: 'auto',
+    display: 'block',
+    margin: '0 auto',
+  },
+};
+
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
   constructor(props: { children: React.ReactNode }) {
     super(props);
@@ -38,7 +54,7 @@ const Filter: React.FC = () => {
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(20); // Changed from 200 to 20 seconds
+  const [timeLeft, setTimeLeft] = useState(200); // Changed from 20 to 200 seconds
   const [currentImage, setCurrentImage] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0);
@@ -47,7 +63,7 @@ const Filter: React.FC = () => {
   const [isEndingChallenge, setIsEndingChallenge] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const challengeDuration = 20; // Changed from 200 to 20 seconds
+  const challengeDuration = 200; // Changed from 20 to 200 seconds
 
   const loadNextImage = useCallback(() => {
     console.log('loadNextImage called. Starting image selection process.');
@@ -153,13 +169,13 @@ const Filter: React.FC = () => {
 
     setChallengeStarted(true);
     setChallengeCompleted(false);
-    setTimeLeft(20); // Set to 20 seconds to start the challenge
+    setTimeLeft(200); // Set to 200 seconds to start the challenge
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setIsEndingChallenge(false);
     setIsRedirecting(false);
 
-    console.log('Challenge starting. Initial states:', { timeLeft: 20, correctAnswers: 0, totalAnswered: 0 });
+    console.log('Challenge starting. Initial states:', { timeLeft: 200, correctAnswers: 0, totalAnswered: 0 });
 
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -261,7 +277,7 @@ const Filter: React.FC = () => {
     <ErrorBoundary>
       <div className={styles.container}>
         <h1>Cephalopod or Crustacean Challenge</h1>
-        <p>Classify 10 images correctly within 20 seconds to pass the challenge and proceed to the next stage!</p>
+        <p>Classify 10 images correctly within 200 seconds to pass the challenge and proceed to the next stage!</p>
         <div className={styles.modal}>
           {!challengeStarted ? (
             <>
@@ -272,6 +288,10 @@ const Filter: React.FC = () => {
             <>
               <h2>Classify the Image</h2>
               <p className={styles.timer}>Time left: {timeLeft} seconds</p>
+              <div className={`${styles.buttonContainer} ${styles.topButtons}`}>
+                <button onClick={() => handleAnswer('cephalopod')} className="fancy-button">Cephalopod</button>
+                <button onClick={() => handleAnswer('crustacean')} className="fancy-button">Crustacean</button>
+              </div>
               {currentImage && (
                 <img
                   src={currentImage}
@@ -280,10 +300,6 @@ const Filter: React.FC = () => {
                   className={styles.challengeImage}
                 />
               )}
-              <div className={styles.buttonContainer}>
-                <button onClick={() => handleAnswer('cephalopod')} className="fancy-button">Cephalopod</button>
-                <button onClick={() => handleAnswer('crustacean')} className="fancy-button">Crustacean</button>
-              </div>
               <p className={styles.progress}>Correct: {correctAnswers} / 10 required</p>
               <p className={styles.progress}>Total Answered: {totalAnswered}</p>
             </>
