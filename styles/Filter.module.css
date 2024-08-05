@@ -27,7 +27,7 @@
   color: black;
   border: none;
   padding: 10px 20px;
-  margin: 0 50px; /* Increase horizontal margin between buttons */
+  margin: 0 150px; /* Increase horizontal margin between buttons */
   cursor: pointer;
   font-size: 16px;
 }
