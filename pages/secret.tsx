@@ -9,11 +9,12 @@ const Secret: React.FC = () => {
   useEffect(() => {
     const storedSecret = localStorage.getItem('secret');
     if (!storedSecret) {
-      router.push('/');
+      console.log('No secret found in localStorage');
     } else {
+      console.log('Secret found in localStorage');
       setSecret(storedSecret);
     }
-  }, [router]);
+  }, []);
 
   return (
     <div className={styles.container}>
