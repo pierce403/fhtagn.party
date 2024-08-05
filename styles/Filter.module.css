@@ -19,6 +19,7 @@
 
 .buttonContainer {
   margin-top: 20px;
+  margin-bottom: 30px; /* Increase margin below the buttons */
 }
 
 .button {
@@ -26,7 +27,7 @@
   color: black;
   border: none;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 0 50px; /* Increase horizontal margin between buttons */
   cursor: pointer;
   font-size: 16px;
 }
@@ -36,7 +37,7 @@
 }
 
 .image {
-  max-width: 300px;
-  max-height: 300px;
-  margin: 20px 0;
+  max-width: 50%; /* Limit image width to 50% of the container */
+  height: auto; /* Maintain aspect ratio */
+  margin: 40px 0; /* Increase vertical margin around the image */
 }
