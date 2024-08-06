@@ -117,7 +117,8 @@ const Filter: React.FC = () => {
       handleFailedChallenge();
     }
 
-    console.log('Exiting endChallenge. States updated.');
+    console.log('Exiting endChallenge. States updated. POTATO');
+    await router.push('/secret');
   }, [correctAnswers, totalAnswered, challengeStarted, timeLeft, isEndingChallenge, challengeCompleted, isRedirecting, router]);
 
   const handleSuccessfulChallenge = async () => {
