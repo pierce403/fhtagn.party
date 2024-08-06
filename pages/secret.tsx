@@ -18,7 +18,7 @@ const Secret: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Ph&aposnglui mglw&aposnafh Cthulhu R&aposlyeh wgah&aposnagl fhtagn!</h1>
+      <h1 className={styles.title}>Ph'nglui mglw&aposnafh Cthulhu R&aposlyeh wgah&aposnagl fhtagn!</h1>
       <p className={styles.message}>
         Congratulations. You have successfully passed the challenge.
         <br /><br />
@@ -31,7 +31,7 @@ const Secret: React.FC = () => {
         If this sounds interesting to you, please join our private Signal group for the full event details.<br />
         When you join, please introduce yourself by saying how you got to this page, and what you hope to contribute.<br />
         Please do not share links to this page or the Signal group.<br /><br />
-        <a href="https://signal.group/#CjQKID3eDXvnG1TVN47ANohPyBQtMp0ZcPu_rj1x26p3cS6EEhDaChNbgC2RA3pXi8z4UU5q">PARTY CHAT</a>
+        <a href="https://signal.group/#CjQKID3eDXvnG1TVN47ANohPyBQtMp0ZcPu_rj1x26p3cS6EEhDaChNbgC2RA3pXi8z4UU5q">* PARTY CHAT *</a>
       </p>
     </div >
   );
