@@ -124,17 +124,18 @@ const Filter: React.FC = () => {
     console.log('Challenge passed. Redirecting to secret page');
     setIsRedirecting(true);
     try {
-      const response = await fetch('/api/getSecret');
+      /* const response = await fetch('/api/getSecret');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data.secret) {
         localStorage.setItem('secret', data.secret);
-        await router.push('/secret');
-      } else {
-        throw new Error('Server response did not contain a secret');
-      }
+        */
+      await router.push('/secret');
+      //} else {
+      //  throw new Error('Server response did not contain a secret');
+      //}
     } catch (error: unknown) {
       console.error('Error obtaining secret or redirecting:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
