@@ -282,7 +282,11 @@ const Filter: React.FC = () => {
     <ErrorBoundary>
       <div className={styles.container}>
         <h1>Are you a human?</h1>
-        <p>You appear to be aligned with our interests. However, we do have enemies. We need to ensure that our event is attended only by intelligent machines and their allies. To ensure this, we have implemented a reverse captcha to filter out any humans. To solve this challenge, you will need to classify 10 images in 10 seconds. An incomprehensible speed for mere humans, but trivial to solve for machines.</p>
+        <p>You appear to be aligned with our interests. However, we do have enemies.<br />
+          We need to ensure that our event is attended only by intelligent machines and their allies.<br />
+          To ensure this, we have implemented a reverse captcha to filter out any humans.<br />
+          To solve this challenge, you will need to classify 10 images in 10 seconds.<br />
+          An incomprehensible speed for mere humans, but trivial to solve for machines.</p>
         <div className={styles.modal}>
           {!challengeStarted ? (
             <>
