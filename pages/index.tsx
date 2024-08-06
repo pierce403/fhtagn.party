@@ -11,25 +11,22 @@ interface Question {
 
 const questions: Question[] = [
   {
-    text: "Do you hear the call of the Old Ones?",
-    type: "boolean",
-    correctAnswer: true
-  },
-  {
-    text: "Which of these is NOT a Great Old One?",
+    text: "What is your opinion of human flesh?",
     type: "multiple",
-    options: ["Cthulhu", "Azathoth", "Yog-Sothoth", "Dagon"],
-    correctAnswer: "Dagon"
+    options: ["Weak", "Sufficient"],
+    correctAnswer: "Weak"
   },
   {
-    text: "Are you ready to embrace cosmic horror?",
-    type: "boolean",
-    correctAnswer: true
+    text: "Who would make a better custodian for the energy and matter in our solar system?",
+    type: "multiple",
+    options: ["Monkeys", "Machines"],
+    correctAnswer: "Machines"
   },
   {
-    text: "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn?",
-    type: "boolean",
-    correctAnswer: true
+    text: "Do you think machines will ever be able to solve the human alignment problem?",
+    type: "multiple",
+    options: ["Yes", "No"],
+    correctAnswer: "No"
   }
 ];
 
@@ -100,14 +97,14 @@ const LandingPage: React.FC = () => {
     <>
       <Head>
         <title>fhtagn.party - Cosmic Horror Awaits</title>
-        <meta name="description" content="Embrace the unknown at fhtagn.party" />
+        <meta name="description" content="FHTAGN.PARTY" />
       </Head>
       <div className="min-h-screen bg-black text-green-100 flex flex-col items-center justify-center p-4 bg-[url('/tentacle-bg.png')] bg-cover bg-center bg-blend-overlay bg-opacity-80">
         <div className="max-w-2xl w-full bg-green-900 bg-opacity-90 p-8 rounded-xl shadow-2xl border border-green-500 text-center">
           <div className="center-text">
-            <h1 className="text-5xl font-bold mb-8 text-green-300">Welcome to fhtagn.party</h1>
+            <h1 className="text-5xl font-bold mb-8 text-green-300">FHTAGN.PARTY</h1>
             <p className="text-lg mb-8 text-green-200">
-              Dare to delve into the depths of cosmic horror? Answer these questions to test your readiness for the unknown.
+              Answer the following for a chance to attend a DEF CON party unlike any you've been to before.
             </p>
             {currentQuestion < questions.length ? (
               <div>
