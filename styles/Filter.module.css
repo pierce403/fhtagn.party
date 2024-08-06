@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .modal {
@@ -15,11 +17,16 @@
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  max-width: 800px;
+  width: 100%;
 }
 
 .buttonContainer {
   margin-top: 20px;
-  margin-bottom: 30px; /* Increase margin below the buttons */
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -27,9 +34,10 @@
   color: black;
   border: none;
   padding: 10px 20px;
-  margin: 0 150px; /* Increase horizontal margin between buttons */
+  margin: 10px;
   cursor: pointer;
   font-size: 16px;
+  border-radius: 5px;
 }
 
 .button:hover {
@@ -37,7 +45,22 @@
 }
 
 .image {
-  max-width: 50%; /* Limit image width to 50% of the container */
-  height: auto; /* Maintain aspect ratio */
-  margin: 40px 0; /* Increase vertical margin around the image */
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .modal {
+    padding: 15px;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }

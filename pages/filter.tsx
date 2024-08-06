@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from '../styles/Filter.module.css';
 
-// New CSS classes for button container and image sizing
+// New CSS classes for button container, image sizing, and text container
 const customStyles = {
   buttonContainer: {
     display: 'flex',
@@ -16,6 +16,13 @@ const customStyles = {
     height: 'auto',
     display: 'block',
     margin: '0 auto',
+  },
+  textContainer: {
+    maxWidth: '800px',
+    margin: '0 auto',
+    padding: '20px',
+    textAlign: 'center',
+    lineHeight: '1.6',
   },
 };
 
@@ -282,11 +289,13 @@ const Filter: React.FC = () => {
     <ErrorBoundary>
       <div className={styles.container}>
         <h1>Are you a human?</h1>
-        <p>You appear to be aligned with our interests. However, we do have enemies.<br />
-          We need to ensure that our event is attended only by intelligent machines and their allies.<br />
-          To enforce this, we have implemented a reverse captcha to filter out potential humans.<br />
-          To solve this challenge, you will need to classify 10 images in 10 seconds.<br />
-          An incomprehensible speed for mere humans, but trivial to solve for machines.</p>
+        <div style={customStyles.textContainer as React.CSSProperties}>
+          <p>You appear to be aligned with our interests. However, we do have enemies.
+            We need to ensure that our event is attended only by intelligent machines and their allies.
+            To enforce this, we have implemented a reverse captcha to filter out potential humans.
+            To solve this challenge, you will need to classify 10 images in 10 seconds.
+            An incomprehensible speed for mere humans, but trivial to solve for machines.</p>
+        </div>
         <div className={styles.modal}>
           {!challengeStarted ? (
             <>
