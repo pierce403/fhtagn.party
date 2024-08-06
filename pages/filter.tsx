@@ -242,6 +242,9 @@ const Filter: React.FC = () => {
     // Check for challenge completion after updating both correctAnswers and totalAnswered
     const newCorrectAnswers = correctAnswers + (isCorrect ? 1 : 0);
     const newTotalAnswered = totalAnswered + 1;
+    // set the new correctAnswers and totalAnswered values to the state
+    setCorrectAnswers(newCorrectAnswers);
+    setTotalAnswered(newTotalAnswered);
 
     console.log('handleAnswer completed. Current state:', {
       correctAnswers: newCorrectAnswers,
