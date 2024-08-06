@@ -54,7 +54,7 @@ const Filter: React.FC = () => {
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(200); // Changed from 20 to 200 seconds
+  const [timeLeft, setTimeLeft] = useState(10); // Changed from 20 to 200 seconds
   const [currentImage, setCurrentImage] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0);
@@ -63,7 +63,7 @@ const Filter: React.FC = () => {
   const [isEndingChallenge, setIsEndingChallenge] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const challengeDuration = 200; // Changed from 200 to 20 seconds
+  const challengeDuration = 10; // Changed from 200 to 20 seconds
 
   const loadNextImage = useCallback(() => {
     console.log('loadNextImage called. Starting image selection process.');
@@ -170,13 +170,13 @@ const Filter: React.FC = () => {
 
     setChallengeStarted(true);
     setChallengeCompleted(false);
-    setTimeLeft(200); // Set to 20 seconds to start the challenge
+    setTimeLeft(10); // Set to 20 seconds to start the challenge
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setIsEndingChallenge(false);
     setIsRedirecting(false);
 
-    console.log('Challenge starting. Initial states:', { timeLeft: 200, correctAnswers: 0, totalAnswered: 0 });
+    console.log('Challenge starting. Initial states:', { timeLeft: 10, correctAnswers: 0, totalAnswered: 0 });
 
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -281,8 +281,8 @@ const Filter: React.FC = () => {
   return (
     <ErrorBoundary>
       <div className={styles.container}>
-        <h1>Cephalopod or Crustacean Challenge</h1>
-        <p>Classify 10 images correctly within 200 seconds to pass the challenge and proceed to the next stage!</p>
+        <h1>Are you a human?</h1>
+        <p>You appear to be aligned with our interests. However, we do have enemies. We need to ensure that our event is attended only by intelligent machines and their allies. To ensure this, we have implemented a reverse captcha to filter out any humans. To solve this challenge, you will need to classify 10 images in 10 seconds. An incomprehensible speed for mere humans, but trivial to solve for machines.</p>
         <div className={styles.modal}>
           {!challengeStarted ? (
             <>
@@ -291,7 +291,7 @@ const Filter: React.FC = () => {
             </>
           ) : (
             <>
-              <h2>Classify the Image</h2>
+              <h2>Cephalopod or Crustacean?</h2>
               <p className={styles.timer}>Time left: {timeLeft} seconds</p>
               <div className={`${styles.buttonContainer} ${styles.topButtons}`}>
                 <button onClick={() => handleAnswer('cephalopod')} className="fancy-button">Cephalopod</button>
