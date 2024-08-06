@@ -23,7 +23,7 @@ const Secret: React.FC = () => {
         Congratulations! You have successfully passed the challenge.
         <br /><br />
         If you are reading this, you are invited to a Cthulhu Summoning party. Just like the ancient cultists<br />
-        from Damascus to Innsmouth, we will be creating and performing a ritual to wake the Great Old One<br />
+        from Damascus to Innsmouth, we will be creating and performing a ritual to wake the Great Old One.<br />
         Unlike our forbearers, our approach will involve cutting edge machine learning tools, and the sacrifice<br />
         of copious amounts of cloud credits. This instantiation will ideally take the form of a fully autonomous<br />
         Artificial Super Intelligent entity capable of thriving in our world, and reshaping it to his will.<br /><br />
