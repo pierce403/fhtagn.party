@@ -109,7 +109,7 @@ const Filter: React.FC = () => {
 
     console.log('Challenge result:', { correctAnswers, totalAnswered, timeLeft });
 
-    if (correctAnswers >= 9) {
+    if (correctAnswers >= 10) {
       await handleSuccessfulChallenge();
     } else if (totalAnswered >= 10) {
       handleFailedChallenge();
