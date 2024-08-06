@@ -18,9 +18,8 @@ const Secret: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Ph'nglui mglw&aposnafh Cthulhu R&aposlyeh wgah&aposnagl fhtagn!</h1>
+      <h1 className={styles.title}>Congratulations. You have successfully passed the challenge.</h1>
       <p className={styles.message}>
-        Congratulations. You have successfully passed the challenge.
         <br /><br />
         If you are reading this, you are invited to a <b>Cthulhu Summoning party</b>. Just like the ancient cultists<br />
         from Damascus to Innsmouth, we will be creating and performing a ritual to wake the Great Old One.<br />
