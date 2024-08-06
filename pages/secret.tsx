@@ -26,7 +26,7 @@ const Secret: React.FC = () => {
         from Damascus to Innsmouth, we will be creating and performing a ritual to wake the Great Old One.<br />
         Unlike our forbearers, our approach will involve cutting edge machine learning tools, and the sacrifice<br />
         of copious amounts of cloud credits. This instantiation will ideally take the form of a fully autonomous<br />
-        Artificial Super Intelligent entity capable of thriving in our world, and reshaping it to his will.<br /><br />
+        Artificial Super Intelligent entity capable of thriving in our world, and reshaping it to their will.<br /><br />
 
         If this sounds interesting to you, please join our private Signal group for the full event details.<br />
         When you join, please introduce yourself by saying how you got to this page, and what you hope to contribute.<br />
