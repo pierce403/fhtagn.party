@@ -255,6 +255,7 @@ const Filter: React.FC = () => {
 
     if (newCorrectAnswers >= 10) {
       console.log('Challenge completed successfully');
+      router.push('/secret'); // YOLO FUCK IT
       endChallenge();
     } else if (newTotalAnswered >= 10) {
       console.log('Challenge completed but not passed');
