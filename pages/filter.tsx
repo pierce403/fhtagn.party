@@ -109,7 +109,7 @@ const Filter: React.FC = () => {
 
     console.log('Challenge result:', { correctAnswers, totalAnswered, timeLeft });
 
-    if (correctAnswers >= 10) {
+    if (correctAnswers >= 9) {
       await handleSuccessfulChallenge();
     } else if (totalAnswered >= 10) {
       handleFailedChallenge();
@@ -118,7 +118,6 @@ const Filter: React.FC = () => {
     }
 
     console.log('Exiting endChallenge. States updated. POTATO');
-    await router.push('/secret');
   }, [correctAnswers, totalAnswered, challengeStarted, timeLeft, isEndingChallenge, challengeCompleted, isRedirecting, router]);
 
   const handleSuccessfulChallenge = async () => {
