@@ -104,7 +104,7 @@ const LandingPage: React.FC = () => {
           <div className="center-text">
             <h1 className="text-5xl font-bold mb-8 text-green-300">FHTAGN.PARTY</h1>
             <p className="text-lg mb-8 text-green-200">
-              Answer the following for a chance to attend a DEF CON party unlike any you've been to before.
+              Something big is happening Sunday night at DEF CON. If you would like to participate, you must answer the following questions.
             </p>
             {currentQuestion < questions.length ? (
               <div>
