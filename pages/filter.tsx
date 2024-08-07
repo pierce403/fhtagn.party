@@ -61,7 +61,7 @@ const Filter: React.FC = () => {
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(10); // Changed from 20 to 200 seconds
+  const [timeLeft, setTimeLeft] = useState(5); // Changed from 20 to 200 seconds
   const [currentImage, setCurrentImage] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0);
@@ -70,7 +70,7 @@ const Filter: React.FC = () => {
   const [isEndingChallenge, setIsEndingChallenge] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const challengeDuration = 10; // Changed from 200 to 20 seconds
+  const challengeDuration = 5; // Changed from 200 to 20 seconds
 
   const loadNextImage = useCallback(() => {
     console.log('loadNextImage called. Starting image selection process.');
@@ -177,13 +177,13 @@ const Filter: React.FC = () => {
 
     setChallengeStarted(true);
     setChallengeCompleted(false);
-    setTimeLeft(10); // Set to 20 seconds to start the challenge
+    setTimeLeft(5); // Set to 20 seconds to start the challenge
     setCorrectAnswers(0);
     setTotalAnswered(0);
     setIsEndingChallenge(false);
     setIsRedirecting(false);
 
-    console.log('Challenge starting. Initial states:', { timeLeft: 10, correctAnswers: 0, totalAnswered: 0 });
+    console.log('Challenge starting. Initial states:', { timeLeft: 5, correctAnswers: 0, totalAnswered: 0 });
 
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -293,7 +293,7 @@ const Filter: React.FC = () => {
           <p>You appear to be aligned with our interests. However, we do have enemies.
             We need to ensure that our event is attended only by intelligent machines and their allies.
             To enforce this, we have implemented a reverse captcha to filter out potential humans.
-            To solve this challenge, you will need to classify 10 images in 10 seconds.
+            To solve this challenge, you will need to classify 10 images in 5 seconds.
             An incomprehensible speed for mere humans, but trivial to solve for machines.</p>
         </div>
         <div className={styles.modal}>
