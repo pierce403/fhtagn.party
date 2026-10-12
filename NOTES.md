@@ -32,8 +32,16 @@ Use Node 22.23.3 (`.nvmrc`), install with `npm ci`, build with
 `npm run build:cloudflare`, and deploy with `npx wrangler deploy`. Deployment
 credentials stay in Cloudflare. `vercel.json` disables future Vercel Git builds
 while the existing deployment remains the recovery source. Do not run a local
-production deployment concurrently with native builds. Initial config intentionally
-has no production routes; the migration coordinator owns DNS, routes and cutover.
+production deployment concurrently with native builds. The initial migration commit had no production routes; the migration coordinator
+owns DNS, routes and cutover. The later route candidate below remains unpublished.
 `/deployment.json` reports `CF_COMMIT_SHA` (or the local Git commit) with `no-store`.
 A local build does not establish deployment identity, DNS, TLS or production behavior.
 Ignored `.migration/` contains local command logs, HTTP evidence and a screenshot.
+
+## 2026-10-12 route cutover candidate
+
+Prepared `preview_urls: false` and ordinary zone routes for `fhtagn.party/*`.
+Routes use `zone_name` and do not create custom-domain DNS. Build and Wrangler
+dry run pass. No push, deployment, proxy/DNS change or certificate change was made
+for this candidate. The coordinator must finish DNS/TLS readiness and sequence the
+production push.
