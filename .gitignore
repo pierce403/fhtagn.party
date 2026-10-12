@@ -125,3 +125,8 @@ typings/
 
 # typescript
 next-env.d.ts
+
+# Cloudflare local state and verification artifacts
+.wrangler/
+.vercel/
+.migration/
