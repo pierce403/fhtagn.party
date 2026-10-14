@@ -45,3 +45,33 @@ Routes use `zone_name` and do not create custom-domain DNS. Build and Wrangler
 dry run pass. No push, deployment, proxy/DNS change or certificate change was made
 for this candidate. The coordinator must finish DNS/TLS readiness and sequence the
 production push.
+
+## 2026-10-13 dependency remediation candidate
+
+The separate `codex/dependency-alerts` review branch upgrades Next.js to 15.5.27
+and its ESLint configuration to 15.5.20. It pins patched transitive packages in
+`package-lock.json`, including source-map-js 1.2.2, and uses npm overrides for
+postcss 8.5.30 and postcss-selector-parser 7.1.6. The latter crosses a major
+version for Tailwind CSS 3.4.7, so the static export build is the compatibility
+check. No application routes or Cloudflare deployment configuration were changed.
+
+Validation: clean offline `npm ci` under Node 22.22.1, `npm run
+build:cloudflare` with `CF_COMMIT_SHA` set to the reviewed main commit,
+`npm run typecheck`, and Wrangler dry run. The build retains the three existing
+ESLint warnings. The local checkout omits binary `public/` assets from the
+remote repository, so its asset count is not a full deployment parity check.
+Production publication and migration sequencing remain with the coordinator.
+
+## 2026-10-14 exact-PR recheck
+
+The published PR head was cloned with all 24 `public/` assets. Under pinned
+Node 22.23.3, clean `npm ci`, static `build:cloudflare`, `typecheck`, and Wrangler
+deploy dry run passed. The dry run included 57 files. A fresh `npm audit fix`
+patched compatible `ajv`, `cross-spawn`, and `yaml` versions in the lockfile;
+the remaining eight high npm findings trace to unpatched `braces` in the
+Tailwind 3 / lint tool graph. No `--force` migration was used.
+
+The current public `https://fhtagn.party/deployment.json` returned the exact
+default-branch revision `3ee8a84b829e97b37289f62c1fe76d4432752156` over
+working Cloudflare DNS and TLS. The exact security PR revision still needs a
+new production deployment and public revision check after merge.
