@@ -75,3 +75,31 @@ The current public `https://fhtagn.party/deployment.json` returned the exact
 default-branch revision `3ee8a84b829e97b37289f62c1fe76d4432752156` over
 working Cloudflare DNS and TLS. The exact security PR revision still needs a
 new production deployment and public revision check after merge.
+
+## 2026-10-24 Next.js and Undici remediation follow-through
+
+PR #20 upgraded Next.js to 15.5.28, pinned Undici 7.30.1 through the npm
+override, and merged as `dd1e93f3c9cef454437f056c23041612c89fee08`.
+The eight high findings recorded in the 2026-10-14 snapshot are superseded for
+this lockfile: a fresh `npm audit` against the merged revision reported zero
+known vulnerabilities.
+
+Exact-runtime validation was repeated from a clean locked install with Node
+22.23.3 from `.nvmrc` and npm 11.17.0. `npm ci --no-fund`, `npm audit`, `npm run
+lint`, `npm run typecheck`, and `npm run check:deploy` all passed. The latter
+completed the Next.js static export and Wrangler deploy dry run with 57 asset
+files. Lint retained the same three warnings in `pages/filter.tsx` described
+above. npm also warned that the install scripts for esbuild and workerd are not
+covered by `allowScripts`; the completed build and dry run exercised the
+installed toolchain, and this follow-through did not change install policy.
+
+This exact-runtime pass closes a documentation gap in the original PR. Its
+earlier local checks began on Node 24.19.0, then lint, typecheck, build, and dry
+run were repeated on Node 22.23.0 using an existing install. A clean install was
+not demonstrated on that runtime, so the PR body's claim of a clean Node
+22.23.0 install was inaccurate. The checks above are the first clean validation
+of the merged revision on the repository's pinned Node 22.23.3 runtime.
+
+No production deployment, DNS/TLS change, or public `/deployment.json` revision
+check was performed. Cloudflare native Git publication and production revision
+verification remain with the migration coordinator.
